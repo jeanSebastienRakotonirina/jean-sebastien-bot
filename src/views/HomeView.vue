@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="card" style="width: 18rem;">
+      <img src="" class="card-img-top" alt="">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.name }}</h5>
+        <p class="card-text">{{ user.bio }}.</p>
+        <a v-bind:href="user.html_url" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+  },
+  data () {
+    return {
+      user: {}
+    }
+  },
+  async mounted () {
+    const res = await fetch('https://api.github.com/users/eddiejaoude')
+    this.user = await res.json()
   }
 }
 </script>
